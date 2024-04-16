@@ -16,7 +16,7 @@ class Home extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Area1(areaNumber: 1,)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Area(areaNumber: 1,)));
                 },
                 style: ButtonStyle(
                   padding: MaterialStateProperty.resolveWith(
@@ -39,7 +39,7 @@ class Home extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Area1(areaNumber: 2)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Area(areaNumber: 2)));
                 },
                 style: ButtonStyle(
                   padding: MaterialStateProperty.resolveWith(

@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(BookingAdapter()); // Register the adapter
-  await Hive.openBox<Booking>('bookings'); // Open the box
+  await Hive.openBox<Booking>('bookings');
   runApp(const MainApp());
 }
 

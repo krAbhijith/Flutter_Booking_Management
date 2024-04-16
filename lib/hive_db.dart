@@ -4,6 +4,7 @@ part 'hive_db.g.dart';
 
 @HiveType(typeId: 0)
 class Booking extends HiveObject {
+
   @HiveField(0)
   int consumerNumber;
 
@@ -28,6 +29,10 @@ class Booking extends HiveObject {
   @HiveField(7)
   bool onlinePayment;
 
+  @HiveField(8)
+  String area;
+  
+
   Booking({
     required this.name,
     required this.consumerNumber,
@@ -37,5 +42,6 @@ class Booking extends HiveObject {
     required this.deliverydate,
     required this.deliverystatus,
     required this.onlinePayment,
+    required this.area
   });
 }

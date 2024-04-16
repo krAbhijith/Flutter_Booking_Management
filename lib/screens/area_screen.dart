@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/screens/booking_list_screen.dart';
 
-class Area1 extends StatelessWidget {
+class Area extends StatelessWidget {
   final int areaNumber;
-  const Area1({super.key, required this.areaNumber});
+  const Area({super.key, required this.areaNumber});
 
   @override
   Widget build(BuildContext context) {

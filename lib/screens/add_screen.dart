@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:test_app/hive_db.dart';
-
 class AddScreen extends StatefulWidget {
   const AddScreen({super.key});
 
@@ -17,6 +16,10 @@ class AddScreenState extends State<AddScreen> {
   // final _bookingDateController = TextEditingController();
   // final _deliveryDateController = TextEditingController();
   // final _areaCodeController = TextEditingController();
+
+  int _radioValue = 0;
+
+  final List<String> area = ['Pazhayannur', 'Vadakkethara', 'Kumbalakode', 'Kallepadam', 'Vennur', 'Elanad', 'Thirumani', 'Thrikanaya'];
 
   void _clearFields() {
     _nameController.clear();
@@ -58,14 +61,52 @@ class AddScreenState extends State<AddScreen> {
             TextField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(hintText: 'Phone')),
-            TextField(
-                controller: _placeController,
-                decoration: const InputDecoration(hintText: 'Place')),
+                decoration: const InputDecoration(hintText: 'Phone')
+            ),
             // TextField(controller: _bookingDateController, decoration: const InputDecoration(hintText: 'Booking Date')),
             // TextField(controller: _deliveryDateController, decoration: const InputDecoration(hintText: 'Delivery Date')),
             // TextField(controller: _areaCodeController, decoration: const InputDecoration(hintText: 'Area Code')),
-
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(4, (index) {
+                return Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Radio(
+                      value: index,
+                      groupValue: _radioValue,
+                      onChanged: _handleRadioValueChange,
+                    ),
+                    Text(
+                      area[index]
+                    ),
+                  ],
+                );
+              }),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(4, (index) {
+                return Column(
+                  children: [
+                    Radio(
+                  value: index + 4,
+                  groupValue: _radioValue,
+                  onChanged: _handleRadioValueChange,
+                ),
+                Text(area[index+4])
+                ]
+                );
+              }),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _placeController,
+              decoration: const InputDecoration(hintText: 'Place')
+            ),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () async {
                 final box = Hive.box<Booking>('bookings');
@@ -74,6 +115,7 @@ class AddScreenState extends State<AddScreen> {
                   consumerNumber: int.parse(_cNoController.text),
                   phone: int.parse(_phoneController.text),
                   place: _placeController.text.toUpperCase(),
+                  area: area[_radioValue],
                   bookingDate: DateTime.now().day.toString() +
                       DateTime.now().month.toString(),
                   deliverydate: '',
@@ -89,5 +131,11 @@ class AddScreenState extends State<AddScreen> {
         ),
       ),
     );
+  }
+
+  void _handleRadioValueChange(int? value) {
+    setState(() {
+      _radioValue = value!;
+    });
   }
 }

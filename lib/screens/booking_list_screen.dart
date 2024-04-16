@@ -12,7 +12,7 @@ class BookingsList extends StatelessWidget {
     final Box box =
         Hive.box<Booking>('bookings'); // Specify the type for type safety
     final List<Booking> bookingsList = box.values.toList().cast<Booking>();
-    final Iterable<Booking> bookings = bookingsList.where((element) => element.place == place.toUpperCase());
+    final Iterable<Booking> bookings = bookingsList.where((element) => element.area == place);
 
     void updateDeliveryStatus(int index) {
       // Check if index is valid

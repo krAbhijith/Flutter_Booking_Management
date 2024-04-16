@@ -14,73 +14,82 @@ class Home extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Area(areaNumber: 1,)));
-                },
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.resolveWith(
-                    (states) => const EdgeInsets.symmetric(vertical: 60, horizontal: 80),
-                  ),
-                  backgroundColor: MaterialStateColor.resolveWith((states) => Colors.green),
-                  shape: MaterialStateProperty.resolveWith(
-                    (states) => const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(18)),
+              SizedBox(
+                width: 380,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const Area(areaNumber: 1,)));
+                  },
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.resolveWith(
+                      (states) => const EdgeInsets.symmetric(vertical: 60),
+                    ),
+                    backgroundColor: MaterialStateColor.resolveWith((states) => Colors.green),
+                    shape: MaterialStateProperty.resolveWith(
+                      (states) => const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(18)),
+                      ),
                     ),
                   ),
-                ),
-                child: const Text(
-                  "Area 1",
-                  style: TextStyle(
-                    fontSize: 50,
-                    color: Color.fromARGB(167, 0, 0, 0),
+                  child: const Text(
+                    "പഴയന്നൂർ",
+                    style: TextStyle(
+                      fontSize: 40,
+                      color: Color.fromARGB(167, 0, 0, 0),
+                    ),
                   ),
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Area(areaNumber: 2)));
-                },
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.resolveWith(
-                    (states) => const EdgeInsets.symmetric(vertical: 60, horizontal: 80),
-                  ),
-                  backgroundColor: MaterialStateColor.resolveWith((states) => Colors.green),
-                  shape: MaterialStateProperty.resolveWith(
-                    (states) => const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(18)),
+              SizedBox(
+                width: 380,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const Area(areaNumber: 2)));
+                  },
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.resolveWith(
+                      (states) => const EdgeInsets.symmetric(vertical: 60, horizontal: 80),
+                    ),
+                    backgroundColor: MaterialStateColor.resolveWith((states) => Colors.green),
+                    shape: MaterialStateProperty.resolveWith(
+                      (states) => const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(18)),
+                      ),
                     ),
                   ),
-                ),
-                child: const Text(
-                  "Area 2",
-                  style: TextStyle(
-                    fontSize: 50,
-                    color: Color.fromARGB(167, 0, 0, 0),
+                  child: const Text(
+                    "എളനാട്",
+                    style: TextStyle(
+                      fontSize: 40,
+                      color: Color.fromARGB(167, 0, 0, 0),
+                    ),
                   ),
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Admin()));
-                },
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateColor.resolveWith((states) => Colors.green),
-                  padding: MaterialStateProperty.resolveWith(
-                    (states) => const EdgeInsets.symmetric(vertical: 20, horizontal: 110),
-                  ),
-                  shape: MaterialStateProperty.resolveWith(
-                    (states) => const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(18)),
+              SizedBox(
+                width: 380,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const Admin()));
+                  },
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateColor.resolveWith((states) => Colors.green),
+                    padding: MaterialStateProperty.resolveWith(
+                      (states) => const EdgeInsets.symmetric(vertical: 20, horizontal: 110),
+                    ),
+                    shape: MaterialStateProperty.resolveWith(
+                      (states) => const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(18)),
+                      ),
                     ),
                   ),
-                ),
-                child: const Text(
-                  "ADMIN",
-                  style: TextStyle(
-                    fontSize: 30,
-                    color: Color.fromARGB(167, 0, 0, 0),
+                  child: const Text(
+                    "ADMIN",
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Color.fromARGB(167, 0, 0, 0),
+                    ),
                   ),
                 ),
               ),

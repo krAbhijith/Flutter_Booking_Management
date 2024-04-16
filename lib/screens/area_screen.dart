@@ -7,8 +7,8 @@ class Area extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> area1 = ['Pazhayannur', 'Vadakkethara', 'Kumbalakode', 'Kallepadam'];
-    final List<String> area2 = ['Vennur', 'Elanad', 'Thirumani', 'Thrikanaya'];
+    final List<String> area1 = ['പഴയന്നൂർ', 'വടക്കേത്തറ', 'കുമ്പളക്കോട്', 'കല്ലേപ്പാടം'];
+    final List<String> area2 = ['വെണ്ണൂർ', 'എളനാട്', 'തിരുമണി', 'തൃക്കണ്ണായ'];
     List<String> area = areaNumber == 1 ? area1 : area2;
     
     return Scaffold(

@@ -3,23 +3,30 @@ import 'package:hive/hive.dart';
 import 'package:test_app/hive_db.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class BookingsList extends StatelessWidget {
+class BookingsList extends StatefulWidget {
   final String place;
   const BookingsList({super.key, required this.place});
 
   @override
+  State<BookingsList> createState() => _BookingsListState();
+}
+
+class _BookingsListState extends State<BookingsList> {
+  @override
   Widget build(BuildContext context) {
-    final Box box =
-        Hive.box<Booking>('bookings'); // Specify the type for type safety
+    final Box box = Hive.box<Booking>('bookings'); // Specify the type for type safety
     final List<Booking> bookingsList = box.values.toList().cast<Booking>();
-    final Iterable<Booking> bookings = bookingsList.where((element) => element.area == place);
+    final Iterable<Booking> bookings = bookingsList.where((element) => element.area == widget.place);
 
     void updateDeliveryStatus(int index) {
       // Check if index is valid
       if (index >= 0 && index < bookings.length) {
         // Update delivery status in Hive box
         final Booking booking = bookings.elementAt(index);
-        booking.deliverystatus = true; // Set delivery status to true
+        setState(() {
+          booking.deliverystatus = true;
+          booking.deliverydate = DateTime.now().day.toString() + DateTime.now().month.toString();
+        });
         box.putAt(index, booking); // Update the item in Hive box
       }
     }

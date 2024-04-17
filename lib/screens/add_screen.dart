@@ -98,9 +98,13 @@ class AddScreenState extends State<AddScreen> {
               decoration: const InputDecoration(hintText: 'Name'),
             ),
             TextField(
-                controller: _phoneController,
-                keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(hintText: 'Phone')),
+              controller: _phoneController,
+              keyboardType: TextInputType.phone,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(10)
+              ],
+              decoration: const InputDecoration(hintText: 'Phone')),
             // TextField(controller: _bookingDateController, decoration: const InputDecoration(hintText: 'Booking Date')),
             // TextField(controller: _deliveryDateController, decoration: const InputDecoration(hintText: 'Delivery Date')),
             // TextField(controller: _areaCodeController, decoration: const InputDecoration(hintText: 'Area Code')),

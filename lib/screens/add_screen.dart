@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:test_app/hive_db.dart';
 import 'package:collection/collection.dart';
@@ -66,22 +67,36 @@ class AddScreenState extends State<AddScreen> {
             TextField(
               controller: _cNoController,
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(6)
+              ],
               onEditingComplete: () {
-                final Box box = Hive.box<Booking>('bookings'); // Specify the type for type safety
-                final List<Booking> bookingsList = box.values.toList().cast<Booking>();
-                final Booking? booking = bookingsList.firstWhereOrNull((element) => element.consumerNumber == int.parse(_cNoController.text));
-                if (booking != null) {
-                  _nameController.text = booking.name;
-                  _phoneController.text = booking.phone.toString();
-                  _placeController.text = booking.place;
-                  _handleRadioValueChange(area.indexOf(booking.place));
-                  // print((booking.area));
+                if (_cNoController.text.length == 6) {
+                  final Box box = Hive.box<Booking>(
+                      'bookings'); // Specify the type for type safety
+                  final List<Booking> bookingsList =
+                      box.values.toList().cast<Booking>();
+                  final Booking? booking = bookingsList.firstWhereOrNull(
+                      (element) =>
+                          element.consumerNumber ==
+                          int.parse(_cNoController.text));
+                  if (booking != null) {
+                    _nameController.text = booking.name;
+                    _phoneController.text = booking.phone.toString();
+                    _placeController.text = booking.place;
+                    _handleRadioValueChange(area.indexOf(booking.area));
+                    // print(booking.area);
+                    // print(area.indexOf(booking.area));
+                    // print((booking.area));
+                  }
                 }
               },
             ),
             TextField(
-                controller: _nameController,
-                decoration: const InputDecoration(hintText: 'Name')),
+              controller: _nameController,
+              decoration: const InputDecoration(hintText: 'Name'),
+            ),
             TextField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,

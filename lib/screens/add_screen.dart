@@ -56,101 +56,128 @@ class AddScreenState extends State<AddScreen> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Add Booking')),
+      backgroundColor: Colors.green.shade100,
+      appBar: AppBar(title: const Text('Add Booking'), backgroundColor: Colors.green.shade100,),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _cNoController,
-              keyboardType: TextInputType.number,
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-                LengthLimitingTextInputFormatter(6)
-              ],
-              onEditingComplete: () {
-                if (_cNoController.text.length == 6) {
-                  final Box box = Hive.box<Booking>(
-                      'bookings'); // Specify the type for type safety
-                  final List<Booking> bookingsList =
-                      box.values.toList().cast<Booking>();
-                  final Booking? booking = bookingsList.firstWhereOrNull(
-                      (element) =>
-                          element.consumerNumber ==
-                          int.parse(_cNoController.text));
-                  if (booking != null) {
-                    _nameController.text = booking.name;
-                    _phoneController.text = booking.phone.toString();
-                    _placeController.text = booking.place;
-                    _handleRadioValueChange(area.indexOf(booking.area));
-                    // print(booking.area);
-                    // print(area.indexOf(booking.area));
-                    // print((booking.area));
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              TextField(
+                controller: _cNoController,
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(6)
+                ],
+                onEditingComplete: () {
+                  if (_cNoController.text.length == 6) {
+                    final Box box = Hive.box<Booking>(
+                        'bookings'); // Specify the type for type safety
+                    final List<Booking> bookingsList =
+                        box.values.toList().cast<Booking>();
+                    final Booking? booking = bookingsList.firstWhereOrNull(
+                        (element) =>
+                            element.consumerNumber ==
+                            int.parse(_cNoController.text));
+                    if (booking != null) {
+                      _nameController.text = booking.name;
+                      _phoneController.text = booking.phone.toString();
+                      _placeController.text = booking.place;
+                      _handleRadioValueChange(area.indexOf(booking.area));
+                    }
                   }
-                }
-              },
-            ),
-            TextField(
-              controller: _nameController,
-              decoration: const InputDecoration(hintText: 'Name'),
-            ),
-            TextField(
-              controller: _phoneController,
-              keyboardType: TextInputType.phone,
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-                LengthLimitingTextInputFormatter(10)
-              ],
-              decoration: const InputDecoration(hintText: 'Phone')),
-            // TextField(controller: _bookingDateController, decoration: const InputDecoration(hintText: 'Booking Date')),
-            // TextField(controller: _deliveryDateController, decoration: const InputDecoration(hintText: 'Delivery Date')),
-            // TextField(controller: _areaCodeController, decoration: const InputDecoration(hintText: 'Area Code')),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(4, (index) {
-                return Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
+                },
+              ),
+
+              const SizedBox(height: 25),
+
+              TextField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  hintText: 'Name',
+                ),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+                  LengthLimitingTextInputFormatter(20)
+                ],
+              ),
+
+              const SizedBox(height: 25),
+
+              TextField(
+                controller: _phoneController,
+                keyboardType: TextInputType.phone,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(10)
+                ],
+                decoration: const InputDecoration(hintText: 'Phone')
+              ),
+              
+              const SizedBox(height: 25),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(4, (index) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Radio(
+                        value: index,
+                        groupValue: _radioValue,
+                        onChanged: _handleRadioValueChange,
+                      ),
+                      Text(area[index]),
+                    ],
+                  );
+                }),
+              ),
+              const SizedBox(height: 25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(4, (index) {
+                  return Column(children: [
                     Radio(
-                      value: index,
+                      value: index + 4,
                       groupValue: _radioValue,
                       onChanged: _handleRadioValueChange,
                     ),
-                    Text(area[index]),
-                  ],
-                );
-              }),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(4, (index) {
-                return Column(children: [
-                  Radio(
-                    value: index + 4,
-                    groupValue: _radioValue,
-                    onChanged: _handleRadioValueChange,
-                  ),
-                  Text(area[index + 4])
-                ]);
-              }),
-            ),
-            const SizedBox(height: 10),
-            TextField(
+                    Text(area[index + 4])
+                  ]);
+                }),
+              ),
+
+              const SizedBox(height: 10),
+
+              TextField(
                 controller: _placeController,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+                ],
                 decoration: const InputDecoration(hintText: 'Place')),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                saveOrUpdateBooking();
-              },
-              child: const Text('Save'),
-            ),
-          ],
+
+              const SizedBox(height: 10),
+
+              ElevatedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.resolveWith((states) => const EdgeInsets.symmetric(vertical: 20,horizontal:  80)),
+                  backgroundColor: MaterialStateColor.resolveWith((states) => Colors.green)
+                ),
+                onPressed: () {
+                  saveOrUpdateBooking();
+                },
+                child: const Text(
+                  'Save',
+                  style: TextStyle(color: Colors.black,),
+                  ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -164,7 +191,8 @@ class AddScreenState extends State<AddScreen> {
 
   void saveOrUpdateBooking() async {
   String cNoText = _cNoController.text;
-  if (cNoText.isNotEmpty) {
+  String phone = _phoneController.text;
+  if (cNoText.length == 6 && phone.length == 10) {
     try {
       int cNo = int.parse(cNoText);
       final Box<Booking> box = Hive.box<Booking>('bookings');

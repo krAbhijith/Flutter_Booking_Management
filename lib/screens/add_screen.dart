@@ -205,7 +205,7 @@ class AddScreenState extends State<AddScreen> {
         existingBooking.phone = int.parse(_phoneController.text);
         existingBooking.place = _placeController.text.toUpperCase();
         existingBooking.area = area[_radioValue];
-        existingBooking.bookingDate = DateTime.now().day.toString() + DateTime.now().month.toString();
+        existingBooking.bookingDate = '${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}';
         // Update other fields as needed
         // print(existingBooking.area);
         box.put(existingBooking.key, existingBooking); // Update the booking in the box
@@ -217,7 +217,7 @@ class AddScreenState extends State<AddScreen> {
           phone: int.parse(_phoneController.text),
           place: _placeController.text.toUpperCase(),
           area: area[_radioValue],
-          bookingDate: DateTime.now().day.toString() + DateTime.now().month.toString(),
+          bookingDate: '${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}',
           deliverydate: '',
           deliverystatus: false,
           onlinePayment: false,

@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:test_app/screens/add_screen.dart';
+import 'package:test_app/screens/day_log_screen.dart';
 
 class Admin extends StatelessWidget {
   const Admin({super.key});
@@ -20,7 +21,9 @@ class Admin extends StatelessWidget {
               SizedBox(
                 width: 380,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const DayLog(),));
+                  },
                   style: ButtonStyle(
                     padding: MaterialStateProperty.resolveWith(
                       (states) => const EdgeInsets.symmetric(vertical: 40),

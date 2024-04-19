@@ -18,14 +18,17 @@ class _BookingsListState extends State<BookingsList> {
     final List<Booking> bookingsList = box.values.toList().cast<Booking>();
     final Iterable<Booking> bookings = bookingsList.where((element) => element.area == widget.place);
 
-    void updateDeliveryStatus(int index) {
+    void updateDeliveryStatus(int index, bool paymentType) { //payment type is 1 for true for online payment flase for normal payment
       // Check if index is valid
       if (index >= 0 && index < bookings.length) {
         // Update delivery status in Hive box
         final Booking booking = bookings.elementAt(index);
         setState(() {
           booking.deliverystatus = true;
-          booking.deliverydate = DateTime.now().day.toString() + DateTime.now().month.toString();
+          booking.deliverydate = '${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}';
+          if (paymentType) {
+            booking.onlinePayment = true;
+          }
         });
         box.putAt(index, booking); // Update the item in Hive box
       }
@@ -73,12 +76,14 @@ class _BookingsListState extends State<BookingsList> {
                   IconButton(
                     onPressed: () {
                       // Modify the delivery status within the box
-                      updateDeliveryStatus(index);
+                      updateDeliveryStatus(index, false);
                     },
                     icon: const Icon(Icons.done_all_rounded),
                   ),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        updateDeliveryStatus(index, true);
+                      },
                       icon: const Icon(Icons.payments_outlined)),
                 ],
               ),

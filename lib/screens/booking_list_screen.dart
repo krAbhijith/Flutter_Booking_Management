@@ -45,7 +45,8 @@ class _BookingsListState extends State<BookingsList> {
       backgroundColor: Colors.green.shade100,
       appBar: AppBar(
         backgroundColor: Colors.green.shade100,
-        title: const Text('Bookings List'),
+        title: Text(widget.place),
+        centerTitle: true,
       ),
       body: ListView.builder(
         itemCount: bookings.length,
@@ -56,14 +57,20 @@ class _BookingsListState extends State<BookingsList> {
           return Card(
             color: const Color.fromARGB(143, 122, 228, 125),
             child: ListTile(
-              title: Text('Consumer Number: ${bookings.elementAt(index).consumerNumber}'),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Name: ${bookings.elementAt(index).name}'),
-                  Text('Place: ${bookings.elementAt(index).place}'),
-                  Text('Date: ${bookings.elementAt(index).bookingDate}'),
-                ],
+              title: Text(
+                '${bookings.elementAt(index).consumerNumber}',
+                style: const TextStyle(fontSize: 24),
+                ),
+              subtitle: DefaultTextStyle(
+                style: const TextStyle(fontSize: 18, color: Color.fromARGB(181, 0, 0, 0)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Name: ${bookings.elementAt(index).name}'),
+                    Text('Place: ${bookings.elementAt(index).place}'),
+                    Text('Date: ${bookings.elementAt(index).bookingDate}'),
+                  ],
+                ),
               ),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,

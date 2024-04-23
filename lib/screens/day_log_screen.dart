@@ -23,8 +23,7 @@ class DayLog extends StatelessWidget {
         itemCount: dayList.length,
         itemBuilder: (context, index){
           Booking bill = dayList.elementAt(index);
-          Color tileColor = index % 2 == 0 ? const Color.fromARGB(120, 0, 0, 0) : Colors.green.shade300;
-          String cNo = bill.onlinePayment ? '${bill.consumerNumber}**'  : bill.consumerNumber.toString();
+          Color tileColor = bill.onlinePayment ? const Color.fromARGB(120, 0, 0, 0) : Colors.green.shade300;
             return ListTile(
               titleTextStyle: const TextStyle(fontSize: 18),
               titleAlignment: ListTileTitleAlignment.center,
@@ -32,7 +31,7 @@ class DayLog extends StatelessWidget {
               tileColor: tileColor,
                 title: Row(
                   children: [
-                    Expanded(flex: 1,child: Text(cNo, textAlign: TextAlign.center,)),
+                    Expanded(flex: 1,child: Text(bill.consumerNumber.toString(), textAlign: TextAlign.center,)),
                     Expanded(flex: 1,child: Text(bill.name, textAlign: TextAlign.center,)),
                     Expanded(flex: 1,child: Text(bill.place, textAlign: TextAlign.center,)),
                   ],
